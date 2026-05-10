@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Anmol Rathod | Cybersecurity & AI/ML</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+--bg:#060608;
+--bg2:#0d0d14;
+--accent:#00ff88;
+--accent2:#7c3aed;
+--accent3:#06b6d4;
+--text:#e8e8ff;
+--muted:#6666aa;
+--border:rgba(255,255,255,0.08);
+}
+body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;overflow-x:hidden;}
+
+nav{position:sticky;top:0;z-index:200;background:rgba(6,6,8,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 2rem;}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;height:58px;}
+.logo{font-family:'Space Mono',monospace;font-size:13px;color:var(--accent);letter-spacing:2px;}
+.nav-links{display:flex;gap:2rem;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:12px;letter-spacing:1px;transition:color .2s;}
+.nav-links a:hover{color:var(--accent);}
+
+.hero{position:relative;min-height:100vh;background:linear-gradient(132deg,#000000,#003320,#0a0020,#200010,#0a0a0a);background-size:400% 400%;animation:bgAnim 18s ease infinite;overflow:hidden;}
+@keyframes bgAnim{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+#ballCanvas{position:absolute;inset:0;width:100%;height:100%;z-index:1;}
+
+.hero-content{position:relative;z-index:10;max-width:1100px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;min-height:100vh;}
+.hero-text{max-width:580px;}
+.tag{display:inline-block;font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3);padding:4px 12px;border-radius:2px;letter-spacing:2px;margin-bottom:1.5rem;}
+.hero-text h1{font-size:clamp(3rem,6vw,5.5rem);font-weight:800;line-height:1.0;margin-bottom:1rem;letter-spacing:-1px;}
+.hero-text h1 .acc{color:var(--accent);}
+.hero-sub{font-size:1rem;color:rgba(255,255,255,0.6);max-width:460px;line-height:1.8;margin-bottom:2rem;border-left:2px solid var(--accent);padding-left:1rem;background:rgba(0,0,0,0.3);padding:0.75rem 1rem;border-radius:0 4px 4px 0;}
+.badges{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:2rem;}
+.badge{font-family:'Space Mono',monospace;font-size:10px;padding:4px 10px;border-radius:2px;border:1px solid;letter-spacing:1px;}
+.bg{color:var(--accent);border-color:rgba(0,255,136,0.35);background:rgba(0,0,0,0.4);}
+.bp{color:#a78bfa;border-color:rgba(167,139,250,0.35);background:rgba(0,0,0,0.4);}
+.bc{color:var(--accent3);border-color:rgba(6,182,212,0.35);background:rgba(0,0,0,0.4);}
+.cta{display:flex;gap:1rem;flex-wrap:wrap;}
+.btn{font-family:'Space Mono',monospace;font-size:11px;padding:11px 22px;border-radius:2px;cursor:pointer;text-decoration:none;letter-spacing:1px;transition:all .2s;display:inline-block;}
+.btn-p{background:var(--accent);color:#000;border:none;font-weight:700;}
+.btn-p:hover{background:#00e07a;transform:translateY(-2px);}
+.btn-o{background:rgba(0,0,0,0.4);color:var(--text);border:1px solid rgba(255,255,255,0.15);backdrop-filter:blur(8px);}
+.btn-o:hover{border-color:var(--accent);color:var(--accent);}
+.dot{width:5px;height:5px;border-radius:50%;background:var(--accent);display:inline-block;animation:blink 1s infinite;margin-left:4px;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+section{padding:5rem 2rem;}
+.section-inner{max-width:1100px;margin:0 auto;}
+.sl{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:3px;margin-bottom:.6rem;display:block;}
+.st{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:700;margin-bottom:2.5rem;letter-spacing:-0.5px;}
+
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;}
+.about-text{color:rgba(255,255,255,0.65);line-height:1.9;font-size:.95rem;}
+.about-text p{margin-bottom:.9rem;}
+.about-text strong{color:#fff;}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.stat-card{background:rgba(0,255,136,0.04);border:1px solid rgba(0,255,136,0.15);padding:1.25rem;border-radius:4px;transition:border-color .2s;}
+.stat-card:hover{border-color:rgba(0,255,136,0.4);}
+.stat-num{font-family:'Space Mono',monospace;font-size:1.8rem;font-weight:700;color:var(--accent);display:block;}
+.stat-lbl{font-size:11px;color:var(--muted);margin-top:4px;letter-spacing:.5px;}
+
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.25rem;}
+.skill-card{background:rgba(255,255,255,0.02);border:1px solid var(--border);padding:1.5rem;border-radius:4px;transition:all .2s;}
+.skill-card:hover{border-color:rgba(0,255,136,0.3);transform:translateY(-3px);}
+.skill-head{display:flex;align-items:center;gap:.7rem;margin-bottom:1.1rem;}
+.skill-head-name{font-size:13px;font-weight:600;letter-spacing:.5px;}
+.skill-tags{display:flex;flex-wrap:wrap;gap:5px;}
+.skill-tag{font-family:'Space Mono',monospace;font-size:10px;padding:3px 8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:2px;color:var(--muted);}
+
+.cert-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem;}
+.cert{background:rgba(255,255,255,0.02);border:1px solid var(--border);border-left:2px solid var(--accent);padding:1rem 1.2rem;border-radius:0 4px 4px 0;transition:transform .15s;}
+.cert:hover{transform:translateX(4px);}
+.cert-name{font-size:13px;font-weight:600;margin-bottom:3px;}
+.cert-org{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);}
+
+.project-card{background:rgba(255,255,255,0.02);border:1px solid var(--border);padding:2rem;border-radius:4px;max-width:580px;}
+.proj-chip{font-family:'Space Mono',monospace;font-size:11px;color:var(--accent);background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.2);padding:3px 9px;border-radius:2px;display:inline-block;margin-bottom:.9rem;}
+.proj-title{font-size:1.15rem;font-weight:700;margin-bottom:.5rem;}
+.proj-desc{color:rgba(255,255,255,0.6);line-height:1.75;font-size:.93rem;margin-bottom:1.1rem;}
+
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;}
+.c-intro{color:rgba(255,255,255,0.6);line-height:1.8;margin-bottom:1.25rem;}
+.c-links{display:flex;flex-direction:column;gap:.6rem;}
+.c-link{display:flex;align-items:center;gap:.75rem;color:rgba(255,255,255,0.6);text-decoration:none;font-size:13px;padding:.7rem 1rem;background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:4px;transition:all .2s;}
+.c-link:hover{border-color:rgba(0,255,136,0.35);color:var(--accent);}
+.c-key{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);min-width:58px;}
+.c-box{background:rgba(255,255,255,0.02);border:1px solid var(--border);padding:1.5rem;border-radius:4px;}
+.c-row{margin-bottom:.9rem;padding-bottom:.9rem;border-bottom:1px solid var(--border);}
+.c-row:last-child{border-bottom:none;margin:0;padding:0;}
+.c-lbl{font-size:12px;color:var(--muted);margin-bottom:4px;display:block;}
+.c-val{font-family:'Space Mono',monospace;font-size:12px;color:#fff;word-break:break-all;}
+
+.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.07),transparent);}
+.s2{background:rgba(255,255,255,0.01);}
+
+footer{padding:2rem;text-align:center;border-top:1px solid var(--border);}
+.ft{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);}
+.ft span{color:var(--accent);}
+
+@media(max-width:700px){.about-grid,.contact-grid{grid-template-columns:1fr;}.nav-links{display:none;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <span class="logo">AR<span style="color:var(--muted)">_DEV</span></span>
+    <div class="nav-links">
+      <a href="#about">About</a><a href="#skills">Skills</a>
+      <a href="#certs">Certs</a><a href="#projects">Projects</a><a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<div class="hero" id="heroSection">
+  <canvas id="ballCanvas"></canvas>
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="tag">// AVAILABLE FOR INTERNSHIP 2026</div>
+      <h1>Anmol<br/><span class="acc">Rathod</span><span class="dot"></span></h1>
+      <p class="hero-sub">Cybersecurity student &amp; AI/ML enthusiast — building toward becoming an AI Security Analyst. Surat, Gujarat.</p>
+      <div class="badges">
+        <span class="badge bg">Ethical Hacking</span>
+        <span class="badge bp">AI / ML</span>
+        <span class="badge bc">Prompt Engineering</span>
+        <span class="badge bg">Network Security</span>
+        <span class="badge bp">Kali Linux</span>
+        <span class="badge bc">Python</span>
+      </div>
+      <div class="cta">
+        <a href="#contact" class="btn btn-p">Get in Touch</a>
+        <a href="https://github.com/anmol-infinex" class="btn btn-o" target="_blank">GitHub ↗</a>
+        <a href="https://linkedin.com/in/anmol-rathod-aabb13360" class="btn btn-o" target="_blank">LinkedIn ↗</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<section id="about">
+  <div class="section-inner">
+    <span class="sl">01 // ABOUT</span><h2 class="st">Who I Am</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm a <strong>B.Sc. IT (Hons.) student at Parul University, Vadodara</strong>, majoring in Cybersecurity with a minor in AI/ML (Class of 2028). Currently Semester 2, on a focused mission to become an <strong>AI Security Analyst</strong>.</p>
+        <p>My approach bridges ethical hacking's offensive mindset with ML's analytical power. I believe the future of security is AI-driven — and I'm building toward that intersection daily.</p>
+        <p>Participated in <strong>Parul University Hackathon 2025</strong>. Daily tools: Kali Linux, Wireshark, Python. Certs from AWS, Tata, Deloitte, NVIDIA.</p>
+        <p>Goal: <strong>Big 4 internship (EY / Deloitte / AccuRec) before Semester 5.</strong></p>
+      </div>
+      <div class="stat-grid">
+        <div class="stat-card"><span class="stat-num">2028</span><span class="stat-lbl">Expected Graduation</span></div>
+        <div class="stat-card"><span class="stat-num">5+</span><span class="stat-lbl">Certifications</span></div>
+        <div class="stat-card"><span class="stat-num">80%+</span><span class="stat-lbl">ML Model Accuracy</span></div>
+        <div class="stat-card"><span class="stat-num">Sem 2</span><span class="stat-lbl">Current Semester</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="skills" class="s2">
+  <div class="section-inner">
+    <span class="sl">02 // SKILLS</span><h2 class="st">Technical Arsenal</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-head"><span style="font-size:18px">🛡️</span><span class="skill-head-name">Cybersecurity</span></div>
+        <div class="skill-tags"><span class="skill-tag">Kali Linux</span><span class="skill-tag">Wireshark</span><span class="skill-tag">IAM</span><span class="skill-tag">Network Security</span><span class="skill-tag">Ethical Hacking</span><span class="skill-tag">Ubuntu</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-head"><span style="font-size:18px">🤖</span><span class="skill-head-name">AI / ML</span></div>
+        <div class="skill-tags"><span class="skill-tag">Prompt Engineering</span><span class="skill-tag">Basic ML</span><span class="skill-tag">Python</span><span class="skill-tag">Sentiment Analysis</span><span class="skill-tag">Claude AI</span><span class="skill-tag">Cursor</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-head"><span style="font-size:18px">💻</span><span class="skill-head-name">Programming & OS</span></div>
+        <div class="skill-tags"><span class="skill-tag">Python</span><span class="skill-tag">Bash</span><span class="skill-tag">Windows</span><span class="skill-tag">Linux</span><span class="skill-tag">Git</span><span class="skill-tag">VS Code</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="certs">
+  <div class="section-inner">
+    <span class="sl">03 // CERTIFICATIONS</span><h2 class="st">Credentials</h2>
+    <div class="cert-list">
+      <div class="cert"><div class="cert-name">AWS Prompt Engineering</div><div class="cert-org">Amazon Web Services</div></div>
+      <div class="cert" style="border-left-color:#7c3aed;"><div class="cert-name">Cybersecurity Virtual Internship</div><div class="cert-org">Tata Group — Forage</div></div>
+      <div class="cert" style="border-left-color:#06b6d4;"><div class="cert-name">Cyber Analyst Virtual Experience</div><div class="cert-org">Deloitte — Forage</div></div>
+      <div class="cert"><div class="cert-name">Intro to Networking</div><div class="cert-org">NVIDIA</div></div>
+      <div class="cert" style="border-left-color:#7c3aed;"><div class="cert-name">Programming Certificate</div><div class="cert-org">Grade: A+</div></div>
+      <div class="cert" style="border-left-color:#06b6d4;"><div class="cert-name">Hackathon 2025 Participant</div><div class="cert-org">Parul University</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="projects" class="s2">
+  <div class="section-inner">
+    <span class="sl">04 // PROJECTS</span><h2 class="st">Featured Work</h2>
+    <div class="project-card">
+      <span class="proj-chip">ML · NLP · Python</span>
+      <div class="proj-title">Toxic Sentiment Detector</div>
+      <div class="proj-desc">A machine learning model that detects toxic, hateful, or harmful language in text using NLP techniques — bridging AI and online safety.</div>
+      <div style="display:flex;gap:.75rem;align-items:center;flex-wrap:wrap;">
+        <span class="badge bg">80–85% Accuracy</span>
+        <span class="badge bp">Python · ML · NLP</span>
+        <a href="https://github.com/anmol-infinex" target="_blank" class="btn btn-o" style="padding:7px 14px;font-size:10px;">View on GitHub ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="contact">
+  <div class="section-inner">
+    <span class="sl">05 // CONTACT</span><h2 class="st">Let's Connect</h2>
+    <div class="contact-grid">
+      <div>
+        <p class="c-intro">Actively looking for internship opportunities in cybersecurity & AI/ML — especially Big 4. Recruiters, mentors, or fellow students — let's connect.</p>
+        <div class="c-links">
+          <a href="mailto:anmolrathod15007@gmail.com" class="c-link"><span class="c-key">EMAIL</span>anmolrathod15007@gmail.com</a>
+          <a href="tel:+919023220520" class="c-link"><span class="c-key">PHONE</span>+91 90232 20520</a>
+          <a href="https://linkedin.com/in/anmol-rathod-aabb13360" target="_blank" class="c-link"><span class="c-key">LINKEDIN</span>anmol-rathod-aabb13360</a>
+          <a href="https://github.com/anmol-infinex" target="_blank" class="c-link"><span class="c-key">GITHUB</span>github.com/anmol-infinex</a>
+        </div>
+      </div>
+      <div class="c-box">
+        <div class="c-row"><span class="c-lbl">Location</span><span class="c-val">Surat, Gujarat, India</span></div>
+        <div class="c-row"><span class="c-lbl">University</span><span class="c-val">Parul University, Vadodara</span></div>
+        <div class="c-row"><span class="c-lbl">Major</span><span class="c-val">B.Sc. IT (Hons.) — Cybersecurity + AI/ML</span></div>
+        <div class="c-row"><span class="c-lbl">Status</span><span class="c-val" style="color:#00ff88;">Open to Internships ✓</span></div>
+        <div class="c-row"><span class="c-lbl">Target</span><span class="c-val">Big 4 by Semester 5</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer><div class="ft">Built by <span>Anmol Rathod</span> · Cybersecurity × AI/ML · Surat, India · 2026</div></footer>
+
+<script>
+const canvas = document.getElementById('ballCanvas');
+const ctx = canvas.getContext('2d');
+const hero = document.getElementById('heroSection');
+
+let W, H, mouse = {x: -999, y: -999};
+
+function resize(){
+  W = canvas.width = hero.offsetWidth;
+  H = canvas.height = hero.offsetHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+canvas.addEventListener('mousemove', e => {
+  const r = canvas.getBoundingClientRect();
+  mouse.x = e.clientX - r.left;
+  mouse.y = e.clientY - r.top;
+});
+canvas.addEventListener('mouseleave', () => { mouse.x = -999; mouse.y = -999; });
+
+const BALL_DEFS = [
+  {label:'KALI\nLINUX', color:'#00ff88', glow:'#00ff88', size:70, x:0.72, y:0.22},
+  {label:'PYTHON', color:'#7c3aed', glow:'#a78bfa', size:58, x:0.85, y:0.45},
+  {label:'AI / ML', color:'#06b6d4', glow:'#06b6d4', size:65, x:0.63, y:0.65},
+  {label:'ETHICAL\nHACK', color:'#00ff88', glow:'#00ff88', size:50, x:0.78, y:0.72},
+  {label:'CTF', color:'#ff6b6b', glow:'#ff6b6b', size:44, x:0.55, y:0.35},
+  {label:'WIRE\nSHARK', color:'#7c3aed', glow:'#a78bfa', size:55, x:0.88, y:0.25},
+  {label:'NLP', color:'#06b6d4', glow:'#06b6d4', size:42, x:0.68, y:0.48},
+  {label:'IAM', color:'#00ff88', glow:'#00ff88', size:38, x:0.80, y:0.58},
+];
+
+class Ball {
+  constructor(def){
+    this.label = def.label;
+    this.color = def.color;
+    this.glow = def.glow;
+    this.r = def.size;
+    this.baseX = def.x;
+    this.baseY = def.y;
+    this.x = 0; this.y = 0;
+    this.vx = (Math.random()-.5)*0.6;
+    this.vy = (Math.random()-.5)*0.6;
+    this.targetX = 0; this.targetY = 0;
+    this.angle = 0;
+    this.rotSpeed = (Math.random()-.5)*0.008;
+    this.bobOffset = Math.random()*Math.PI*2;
+    this.bobSpeed = 0.4+Math.random()*0.3;
+    this.pushed = false;
+    this.pushTimer = 0;
+  }
+
+  update(t){
+    this.targetX = this.baseX * W;
+    this.targetY = this.baseY * H + Math.sin(t*this.bobSpeed+this.bobOffset)*18;
+
+    const dx = mouse.x - this.x;
+    const dy = mouse.y - this.y;
+    const dist = Math.sqrt(dx*dx+dy*dy);
+    const repelRadius = this.r * 2.5;
+
+    if(dist < repelRadius && dist > 0){
+      const force = (repelRadius - dist) / repelRadius;
+      const angle = Math.atan2(dy, dx);
+      this.vx -= Math.cos(angle) * force * 4;
+      this.vy -= Math.sin(angle) * force * 4;
+      this.pushed = true;
+      this.pushTimer = 30;
+    } else {
+      if(this.pushTimer > 0) this.pushTimer--;
+      else this.pushed = false;
+    }
+
+    const homeForce = 0.04;
+    this.vx += (this.targetX - this.x) * homeForce;
+    this.vy += (this.targetY - this.y) * homeForce;
+    this.vx *= 0.88;
+    this.vy *= 0.88;
+    this.x += this.vx;
+    this.y += this.vy;
+    this.angle += this.rotSpeed + (this.pushed ? 0.03 : 0);
+  }
+
+  draw(){
+    ctx.save();
+    ctx.translate(this.x, this.y);
+
+    const glowAlpha = this.pushed ? 0.7 : 0.3;
+    const glowSize = this.pushed ? this.r * 1.6 : this.r * 1.2;
+
+    const grad = ctx.createRadialGradient(0,0,this.r*0.1,0,0,glowSize);
+    grad.addColorStop(0, this.glow + Math.round(glowAlpha*255).toString(16).padStart(2,'0'));
+    grad.addColorStop(1, 'transparent');
+    ctx.beginPath();
+    ctx.arc(0,0,glowSize,0,Math.PI*2);
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc(0,0,this.r,0,Math.PI*2);
+    const sphere = ctx.createRadialGradient(-this.r*0.3,-this.r*0.3,this.r*0.05, this.r*0.1, this.r*0.1, this.r*1.2);
+    sphere.addColorStop(0, this.color+'cc');
+    sphere.addColorStop(0.4, this.color+'55');
+    sphere.addColorStop(1, '#00000099');
+    ctx.fillStyle = sphere;
+    ctx.fill();
+    ctx.strokeStyle = this.color + (this.pushed ? 'ff' : '88');
+    ctx.lineWidth = this.pushed ? 2 : 1;
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(-this.r*0.28,-this.r*0.3,this.r*0.22,0,Math.PI*2);
+    ctx.fillStyle = 'rgba(255,255,255,0.25)';
+    ctx.fill();
+
+    const lines = this.label.split('\n');
+    ctx.fillStyle = '#ffffff';
+    ctx.font = `700 ${Math.max(10, this.r*0.22)}px 'Space Mono', monospace`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    const lineH = this.r * 0.26;
+    const totalH = lines.length * lineH;
+    lines.forEach((line, i) => {
+      ctx.fillText(line, 0, -totalH/2 + lineH*i + lineH/2);
+    });
+
+    ctx.restore();
+  }
+}
+
+const balls = BALL_DEFS.map(d => {
+  const b = new Ball(d);
+  b.x = d.x * (window.innerWidth || 900);
+  b.y = d.y * (window.innerHeight || 600);
+  return b;
+});
+
+function loop(t){
+  ctx.clearRect(0,0,W,H);
+  const sec = t / 1000;
+  balls.forEach(b => { b.update(sec); b.draw(); });
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+
+const hero3d = document.querySelector('.hero-content');
+hero.addEventListener('mousemove', e => {
+  const cx = W/2, cy = H/2;
+  const dx = (e.clientX - cx)/cx;
+  const dy = (e.clientY - cy)/cy;
+  hero3d.style.transform = `perspective(900px) rotateY(${dx*6}deg) rotateX(${-dy*4}deg)`;
+});
+hero.addEventListener('mouseleave', () => {
+  hero3d.style.transform = 'perspective(900px) rotateY(0deg) rotateX(0deg)';
+  hero3d.style.transition = 'transform 0.5s ease-out';
+});
+</script>
+</body>
+</html>
